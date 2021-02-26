@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import styled from 'styled-components';
+//import componets
+import Offer from './components/Offer';
+import Prices from './components/Prices';
+import Characteristics from './components/Characteristics';
+
+//styled components
+const Container = styled.div`
+  width: 100%;
+  height: 100vh;
+  background-color: #F4F5F7;
+  padding: 50px;
+`;
+
+const ContPrin = styled.div`
+  display: flex;
+  width: 100%;
+  height: 380px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 30% 70%;
+`;
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container >
+      <Offer />
+      <ContPrin>
+        <Characteristics />
+        <Prices />
+      </ContPrin>
+    </Container>
   );
 }
 
