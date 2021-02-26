@@ -3,8 +3,8 @@ import { ADD_FILTROS, ADD_SELECT } from '../Constants/constants'
 const initalState = {
   filtro: [],
   ofertSelect: null,
-  prices: [],
-  characteristics: [],
+  prices: null,
+  characteristics: null,
 }
 
 const Reducer = (state = initalState, action)=>{

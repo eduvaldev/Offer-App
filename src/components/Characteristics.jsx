@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import { useSelector } from "react-redux";
 import styled from 'styled-components';
 
 //styled components
@@ -35,13 +35,17 @@ const Caracteristicas = styled.div`
 
 const Characteristics = () => {
   const caract = useSelector(state => state.characteristics)
-  const [caracteristicas, setCaracteristicas] = useState(caract)
+  const [caracteristicas, setCaracteristicas] = useState(null)
+
+  useEffect(() => {
+    setCaracteristicas(caract)
+ }, [caract])
 
   return ( 
     <Caracteristicas>
       <h1>Caracteristicas</h1>
       <div>
-        {caracteristicas.map( elemt => 
+        {caracteristicas && caracteristicas.map( elemt => 
         <div>
           {elemt.id}
         </div>)}

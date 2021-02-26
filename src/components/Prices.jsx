@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import styled from 'styled-components';
 
@@ -41,8 +41,12 @@ const ContPrice = styled.div`
 
 const Prices = () => {
 
-  const price = useSelector(state => state.prices)
-  const [allprices, setAllprices] = useState(price)
+  let price = useSelector(state => state.prices)
+  const [allprices, setAllprices] = useState(null)
+
+  useEffect(() => {
+     setAllprices(price)
+  }, [price])
 
   return ( 
     <ContPrice>
@@ -57,12 +61,15 @@ const Prices = () => {
       </div>
       <div>
         <h2>Monto</h2>
-        <div>
+        {allprices ? 
+          <div>
           <p> <span>{allprices[0].versions[0].price.amount} {allprices[0].versions[0].price.units.name}</span> </p>
           <p> <span>{allprices[1].versions[0].price.amount} {allprices[0].versions[0].price.units.name}</span> </p>
           <p> <span>{allprices[2].versions[0].price.amount} {allprices[0].versions[0].price.units.name}</span> </p>
           <p> <span>{allprices[3].versions[0].price.amount} {allprices[0].versions[0].price.units.name}</span> </p>  
         </div>
+        : null
+        }
       </div>
     </ContPrice>
    );
