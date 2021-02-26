@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { getSelectProduct } from '../store/Actions/actions'
 import styled from 'styled-components';
 
 //styled components
@@ -77,27 +79,39 @@ const ContText = styled.div`
 `;
 
 const Offer = () => {
+  const [select, setSelect] = useState('init');
+  const filtros = useSelector(state => state.filtro);
+  const ofert = useSelector(state => state.ofertSelect);
+  const dispatch = useDispatch()
+
+  const handleChange = (e) =>{
+    console.log(e.target.value);
+    setSelect(e.target.value);
+    dispatch(getSelectProduct(e.target.value));
+
+  }
+
   return ( 
     <ContainerOffer>
       <ContSelect>
         <h3>Ganancias reportadas:</h3>
         <div className="select">
-          <select name="cars" id="cars">
+          <select name="cars" id="cars" value={select} onChange={handleChange}>
             <option value="...">Filtro...</option>
-            <option value="mes1">Último mes</option>
-            <option value="mes2">Últimos 3 meses</option>
-            <option value="mes3">Últimos 6 meses</option>
+            { 
+              filtros.map( (option, id) => <option key={id} value={option} >{option}</option>)
+            }
           </select>
         </div>
       </ContSelect>
       <ContText>
         <div>
           <h2>ID Oferta:</h2>
-          <p>Algo</p>
+          { ofert !== null ? <p>{ofert.id}</p> : null}
         </div>
         <div>
           <h2>Nombre:</h2>
-          <p>Oferta 1</p>
+          { ofert !== null ? <p>{ofert.name}</p> : null}
         </div>
       </ContText>
     </ContainerOffer>

@@ -1,37 +1,40 @@
-import axios from 'axios';
-import { ADD_CITY_MEDELLIN, SEARCH_CITY, CLOSE_CITY } from '../Constants/constants'
+import { ADD_FILTROS, ADD_SELECT } from '../Constants/constants'
 
-const apiKey = process.env.REACT_APP_API_KEY
 
-export function getCityMed(){
+export function getFiltros(){
   return( dispatch =>{
-    axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Medellin&units=metric&appid=${apiKey}`)
-          .then( res =>{
-            dispatch({
-              type: ADD_CITY_MEDELLIN,
-              payload: res.data
+    fetch("json/ofertas.json")
+          .then( resp => resp.json())
+          .then( datos =>{
+            let oferts = []
+            datos.map( elemt => {
+              oferts.push(elemt.versions[0].id)
             })
+            dispatch({
+              type: ADD_FILTROS,
+              payload: oferts
+            })
+          })
+          .catch( err => {
+            console.log(err)
           })
   })
 }
 
-export function searchCity(city){
-  return( dispatch => {
-    axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`)
-          .then( res =>{
+export function getSelectProduct(id){
+  return( dispatch =>{
+    fetch("json/ofertas.json")
+          .then( resp => resp.json())
+          .then( datos =>{
+            let select = datos.filter( elemet => elemet.versions[0].id === id);
+            console.log(select[0].versions[0])
             dispatch({
-              type: SEARCH_CITY,
-              payload: res.data
+              type: ADD_SELECT,
+              payload: select[0].versions[0]
             })
           })
-  })
-}
-
-export function closeCity(id){
-  return( dispatch =>{
-    dispatch({
-      type: CLOSE_CITY,
-      payload: id
-    })
+          .catch( err => {
+            console.log(err)
+          })
   })
 }

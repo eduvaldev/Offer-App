@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { getFiltros } from './store/Actions/actions'
 import styled from 'styled-components';
 //import componets
 import Offer from './components/Offer';
@@ -26,6 +28,12 @@ const ContPrin = styled.div`
 
 
 function App() {
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getFiltros())
+  }, [])
+
   return (
     <Container >
       <Offer />

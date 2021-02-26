@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import styled from 'styled-components';
 
 //styled components
 const ContPrice = styled.div`
   width: 100%;
-  height: 100%;
+  height: 30%;
   padding-left: 20px;
   display: grid;
   grid-template-columns: auto auto;
@@ -39,6 +40,10 @@ const ContPrice = styled.div`
 `;
 
 const Prices = () => {
+
+  const price = useSelector(state => state.prices)
+  const [allprices, setAllprices] = useState(price)
+
   return ( 
     <ContPrice>
       <div>
@@ -53,10 +58,10 @@ const Prices = () => {
       <div>
         <h2>Monto</h2>
         <div>
-          <p> <span>100.000</span> </p>
-          <p> <span>300</span> </p>
-          <p> <span>200</span> </p>
-          <p> <span>150.000</span> </p>  
+          <p> <span>{allprices[0].versions[0].price.amount} {allprices[0].versions[0].price.units.name}</span> </p>
+          <p> <span>{allprices[1].versions[0].price.amount} {allprices[0].versions[0].price.units.name}</span> </p>
+          <p> <span>{allprices[2].versions[0].price.amount} {allprices[0].versions[0].price.units.name}</span> </p>
+          <p> <span>{allprices[3].versions[0].price.amount} {allprices[0].versions[0].price.units.name}</span> </p>  
         </div>
       </div>
     </ContPrice>
